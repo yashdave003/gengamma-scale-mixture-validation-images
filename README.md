@@ -86,8 +86,6 @@ This repository uses seven image datasets spanning remote sensing, natural image
 | [syntheticMRI2D](https://arxiv.org/abs/2209.07162) | 15,000 | 2D synthetic MRI brain images — axial (333×234), coronal (244×234), and sagittal (174×234) slices |
 | [syntheticMRI3D](https://arxiv.org/abs/2209.07162) | 300 | 3D synthetic MRI brain images (160×224×160) |
 
-![Image Panel](publication\paper\final_plots\data_panel.jpg)
-
 ---
 
 ## Citation
