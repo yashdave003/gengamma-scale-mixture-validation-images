@@ -16,15 +16,15 @@ In this paper, we provide the first demonstration that the prior model is realis
 ├── publication/                # Figures and assets used in the paper
 ├── results/                    # Output reports, CDFs, and case studies
 │   ├── CDFs/                   # Empirical CDF plots
-│   ├── reports/                # Aggregate fit reports
-│   ├── testing_template.ipynb  # generic testing pipeline
 │   └── case-studies/           # Per-dataset case study notebooks and outputs. 
 │       └── <dataset>/       
 │           └── <subset>/
 │               └── <transform>/
 │                   └── <channel>/
 │                       ├── plots/ 
-|                       ├── CSVs/ 
+|                       ├── CSVs/
+|                       ├── independence_template.ipynb  # generic independence testing pipeline
+|                       ├── testing_template.ipynb  # generic testing pipeline
 |                       └── <channel>-<subset>-<dataset>-<transform>.ipynb
 ├── transformed-data/           # Transformed images, download from Box
 ├── utilities/                  # Shared helper functions

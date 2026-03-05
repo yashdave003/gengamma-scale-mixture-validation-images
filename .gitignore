@@ -1,0 +1,35 @@
+sandbox/
+raw-data/
+transformed-data/
+
+# Large data files
+**/cache/
+publication/paper/CSVs/final_results_with_hull.pickle
+/publication/paper/code/ks_kl_plot_final/kl_hessian_matrices
+/publication/paper/code/ks_kl_plot_final/ks_gradient_data
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Environment
+.env
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MATLAB
+*.asv
+
+# Logs
+faultyCDFs.csv
+faultyCDF_log.txt
+generate_CDF_log.csv
+
+*.pptx
+/publication/poster/ks_kl_plot/final_plot/kl_hessian_matrices
+/publication/poster/ks_kl_plot/kl-divergence/hessian_matrices
