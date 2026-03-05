@@ -17,14 +17,14 @@ In this paper, we provide the first demonstration that the prior model is realis
 ├── results/                    # Output reports, CDFs, and case studies
 │   ├── CDFs/                   # Empirical CDF plots
 │   └── case-studies/           # Per-dataset case study notebooks and outputs. 
+|       ├── independence_template.ipynb  # generic independence testing pipeline
+|       ├── testing_template.ipynb  # generic testing pipeline
 │       └── <dataset>/       
 │           └── <subset>/
 │               └── <transform>/
 │                   └── <channel>/
 │                       ├── plots/ 
 |                       ├── CSVs/
-|                       ├── independence_template.ipynb  # generic independence testing pipeline
-|                       ├── testing_template.ipynb  # generic testing pipeline
 |                       └── <channel>-<subset>-<dataset>-<transform>.ipynb
 ├── transformed-data/           # Transformed images, download from Box
 ├── utilities/                  # Shared helper functions
