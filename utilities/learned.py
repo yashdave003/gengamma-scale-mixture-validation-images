@@ -1,0 +1,116 @@
+import git
+from pathlib import Path
+import os
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.signal import convolve
+from scipy.stats import bootstrap
+from scipy import stats
+from scipy.stats import skew
+import cv2
+import warnings
+from tqdm.notebook import tqdm
+from PIL import Image
+
+warnings.filterwarnings("ignore")
+np.set_printoptions(legacy='1.25')
+np.random.seed(0)
+
+ROOT_DIR = Path(git.Repo('.', search_parent_directories=True).working_tree_dir)
+
+# import torch
+# import torchvision
+# import torchvision.transforms as transforms
+# import torch.nn.functional as F
+
+# alexnet = torchvision.models.alexnet(pretrained=True)
+# alexnet.eval()  
+# first_conv = alexnet.features[0]
+# filters = first_conv.weight.data.clone().cpu().numpy().transpose(0, 2, 3, 1)  # shape: [out_channels, in_channels, height, width]
+
+filters = pd.read_pickle(os.path.join(ROOT_DIR, 'learned-filters', 'filters.pickle'))
+
+def load_images_from_directory(directory, n=None, jitter=False, normalize=False):
+
+    all_images = os.listdir(directory)
+    num_images = len(all_images)
+
+    if not n:
+        n = num_images
+
+    images = []
+    subset = np.random.permutation(num_images)[:n]
+    
+    for i in tqdm(subset, desc="Loading images"):
+        filename = all_images[i]
+        if filename.endswith(".npz"):
+            with np.load(os.path.join(directory, filename)) as z:
+                if len(z.files) == 1:
+                    img = z[z.files[0]].astype(np.float64)
+                else:
+                    img = np.load(os.path.join(directory, filename))["image"].astype(np.float64)
+        elif filename.endswith(".jpg"):
+            img = cv2.imread(os.path.join(directory, filename)).astype(np.float64)
+            if img.ndim == 3 and img.shape[-1] == 3:
+                img = img[..., ::-1]
+        elif filename.endswith(".tif"):
+            img = np.array(cv2.imread(os.path.join(directory, filename), cv2.IMREAD_UNCHANGED)).astype(np.float64)
+            if img.ndim == 2:  # grayscale image
+                img = np.stack([img] * 3, axis=-1)
+            if img.ndim == 3 and img.shape[-1] == 3:
+                img = img[..., ::-1]
+
+        if jitter:
+            img += np.random.uniform(-0.5, 0.5, size=img.shape)
+        if normalize:
+            img = (img - np.mean(img))/np.std(img)
+        images.append(img)
+
+    return np.array(images)
+
+from utilities.testing import bootstrap_metric
+from utilities.transform import rgb2gray
+
+
+def gabor_load_images_from_directory(directory, n=None, jitter=False, normalize=False):
+    # FOR NPZ FILES, WE ASSUME THE IMAGE IS SAVED IN RGB FORMAT, SO WE CONVERT TO BGR
+    # FOR JPG AND TIF FILES, WE READ USING CV2, WHICH LOADS IN BGR FORMAT BY DEFAULT
+    all_images = os.listdir(directory)
+    num_images = len(all_images)
+
+    if not n:
+        n = num_images
+
+    images = []
+    subset = np.random.permutation(num_images)[:n]
+    
+    for i in tqdm(subset, desc="Loading images"):
+        filename = all_images[i]
+        if filename.lower().endswith(".npz"):
+            with np.load(os.path.join(directory, filename)) as z:
+                # if single array inside, use it; else prefer "image" key
+                if len(z.files) == 1:
+                    img = z[z.files[0]].astype(np.float64)
+                else:
+                    img = z["image"].astype(np.float64)
+
+            # Convert RGB (saved) -> BGR (desired) if 3-channel
+            if img.ndim == 3 and img.shape[-1] == 3:
+                img = img[..., ::-1]
+        elif filename.endswith(".jpg"):
+            img = cv2.imread(os.path.join(directory, filename)).astype(np.float64)
+        elif filename.endswith(".tif"):
+            img = np.array(cv2.imread(os.path.join(directory, filename), cv2.IMREAD_UNCHANGED)).astype(np.float64)
+            if img.ndim == 2:  # grayscale image
+                img = np.stack([img] * 3, axis=-1)
+
+        if jitter:
+            img += np.random.uniform(-0.5, 0.5, size=img.shape)
+        if normalize:
+            img = (img - np.mean(img))/np.std(img)
+        images.append(img)
+
+    return np.array(images)
