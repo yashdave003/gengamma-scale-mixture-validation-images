@@ -9,16 +9,16 @@ In this paper, we provide the first demonstration that the prior model is realis
 
 ```
 .
-├── dataset-preparation/        # Scripts to preprocess datasets
-├── demos/                      # End-to-end demo notebook
-├── gabor/                      # Gabor filter preliminary tests
-├── learned-filters/            # Learned filter preliminary tests
-├── publication/                # Figures and assets used in the paper
-├── results/                    # Output reports, CDFs, and case studies
-│   ├── CDFs/                   # Empirical CDF plots
-│   └── case-studies/           # Per-dataset case study notebooks and outputs. 
-|       ├── independence_template.ipynb  # generic independence testing pipeline
-|       ├── testing_template.ipynb  # generic testing pipeline
+├── dataset-preparation/                  # Scripts to preprocess datasets
+├── demos/                                # End-to-end demo notebook
+├── gabor/                                # Gabor filter preliminary tests
+├── learned-filters/                      # Learned filter preliminary tests
+├── publication/                          # Figures and assets used in the paper
+├── results/                              # Output reports, CDFs, and case studies
+│   ├── CDFs/                             # Empirical CDF plots
+│   └── case-studies/                     # Per-dataset case study notebooks and outputs. 
+|       ├── independence_template.ipynb   # generic independence testing pipeline
+|       ├── testing_template.ipynb        # generic testing pipeline
 │       └── <dataset>/       
 │           └── <subset>/
 │               └── <transform>/
@@ -26,9 +26,9 @@ In this paper, we provide the first demonstration that the prior model is realis
 │                       ├── plots/ 
 |                       ├── CSVs/
 |                       └── <channel>-<subset>-<dataset>-<transform>.ipynb
-├── transformed-data/           # Transformed images, download from Box
-├── utilities/                  # Shared helper functions
-└── requirements.txt            # Python dependencies
+├── transformed-data/                     # Transformed images, download from Box
+├── utilities/                            # Shared helper functions
+└── requirements.txt                      # Python dependencies
 ```
 
 ---
