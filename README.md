@@ -14,6 +14,7 @@ In this paper, we provide the first demonstration that the prior model is realis
 ├── gabor/                                # Gabor filter preliminary tests
 ├── learned-filters/                      # Learned filter preliminary tests
 ├── publication/                          # Figures and assets used in the paper
+├── raw-data/                             # Raw data, download from Box
 ├── results/                              # Output reports, CDFs, and case studies
 │   ├── CDFs/                             # Empirical CDF plots
 │   └── case-studies/                     # Per-dataset case study notebooks and outputs. 
